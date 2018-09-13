@@ -14,7 +14,7 @@ export class RecipeListComponent implements OnInit {
     new Recipe('A test recipe', 'Test descr',
       'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg'),
     new Recipe('A test recipe2', 'Test descr2',
-      'https://www.bbcgoodfood.com/sites/default/files/recipe-collections/collection-image/2013/05/frying-pan-pizza-easy-recipe-collection.jpg'),
+      'https://imagesvc.timeincapp.com/v3/mm/image?url=https%3A%2F%2Fcdn-image.foodandwine.com%2Fsites%2Fdefault%2Ffiles%2F1532533774%2Fpasta-with-sausage-mustard-and-basil-XL-RECIPE0918.jpg&w=700&q=85'),
   ];
   constructor() { }
 

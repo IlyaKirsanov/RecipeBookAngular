@@ -4,6 +4,8 @@ import {RecipeService} from '../recipes/recipe.service';
 import {Recipe} from '../recipes/recipe.model';
 import 'rxjs/add/operator/map';
 import {AuthService} from '../auth/auth.service';
+import {HttpClient, HttpHeaders, HttpParams, HttpRequest} from '@angular/common/http';
+import {stringify} from 'querystring';
 
 
 @Injectable()
@@ -11,22 +13,26 @@ export class DataStorageService {
 
   constructor(private http: Http,
               private recipeService: RecipeService,
-              private  authService: AuthService) {
+              private  authService: AuthService,
+              private httpClient: HttpClient) {
   }
 
   storeRecipes() {
-    return this.http.put('https://my-super-test-c204f.firebaseio.com/recipes.json',
-      this.recipeService.getRecipes());
+
+    const req = new HttpRequest('PUT', 'https://my-super-test-c204f.firebaseio.com/recipes.json',
+      this.recipeService.getRecipes(), {reportProgress: true});
+    return this.httpClient.request(req);
   }
 
   getRecipes() {
-    const token = this.authService.getToken();
-    console.log(token);
+       // this.httpClient.get<Recipe[]>('https://my-super-test-c204f.firebaseio.com/recipes.json?auth=' + token)
+       this.httpClient.get<Recipe[]>('https://my-super-test-c204f.firebaseio.com/recipes.json?'
+         , {
+         observe: 'body',
 
-       this.http.get('https://my-super-test-c204f.firebaseio.com/recipes.json?auth=' + token)
-         .map((response: Response) => {
-          const recipes: Recipe[] = response.json();
-          for (const recipe of recipes) {
+       })
+         .map((recipes) => {
+           for (const recipe of recipes) {
             if (!recipe['ingredients']) {
               recipe['ingredients'] = [];
             }

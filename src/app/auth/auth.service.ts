@@ -1,6 +1,7 @@
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
+import {stringify} from 'querystring';
 
 @Injectable()
 export class AuthService {
@@ -38,7 +39,7 @@ export class AuthService {
     return firebase.auth().currentUser.getIdToken()
       .then(
         (token: string) => this.token = token
-      );
+      )
     return this.token;
   }
 
